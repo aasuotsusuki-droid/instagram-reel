@@ -1,0 +1,26 @@
+{% extends "base.html" %}{% block title %}FF VOTE — Home{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <p class="eyebrow">COMMUNITY CHOICE</p>
+    <h1>YOUR VOTE.<br><strong>YOUR LEGACY.</strong></h1>
+    <p>Choose your favorite creators, players and Craftland maps.</p>
+    {% if not session.get('user_id') %}<a class="btn" href="{{url_for('signup')}}">JOIN THE VOTE</a>{% endif %}
+  </div>
+</section>
+<section class="section">
+<h2>ACTIVE VOTES</h2>
+<div class="grid">
+{% for c in categories %}
+<article class="card">
+  <div class="tag">{{"OPEN" if c.is_open else "CLOSED"}}</div>
+  <h3>{{c.name}}</h3><p>{{c.description}}</p>
+  <div class="actions">
+    {% if c.is_open and session.get('user_id') %}<a class="btn" href="{{url_for('vote',category_id=c.id)}}">VOTE NOW</a>
+    {% elif not session.get('user_id') %}<a class="btn" href="{{url_for('login')}}">LOGIN TO VOTE</a>{% endif %}
+    <a class="ghost" href="{{url_for('results',category_id=c.id)}}">RESULTS →</a>
+  </div>
+</article>
+{% else %}<p>No voting categories yet.</p>{% endfor %}
+</div></section>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% block title %}Vote — {{category.name}}{% endblock %}
+{% block content %}<section class="section"><p class="eyebrow">CAST YOUR VOTE</p><h1>{{category.name}}</h1><p>{{category.description}}</p>
+{% if existing %}<div class="alert success">You already voted in this category. Thanks for participating!</div>{% endif %}
+<div class="grid">
+{% for c in contestants %}<article class="card contestant">
+{% if c.image %}<img src="{{c.image}}" alt="{{c.name}}">{% else %}<div class="placeholder">FF</div>{% endif %}
+<h3>{{c.name}}</h3><p>{{c.description}}</p>
+{% if not existing and category.is_open %}
+<form method="post"><input type="hidden" name="contestant_id" value="{{c.id}}"><button class="btn" type="submit">VOTE</button></form>
+{% endif %}</article>{% endfor %}
+</div></section>{% endblock %}

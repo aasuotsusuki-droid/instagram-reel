@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block title %}Results — {{category.name}}{% endblock %}
+{% block content %}<section class="section"><p class="eyebrow">LIVE RESULTS</p><h1>{{category.name}}</h1>
+{% for c in contestants %}<div class="result"><div><strong>{{c.name}}</strong><span>{{c.vote_count}} votes</span></div>
+<div class="bar"><i style="width:{{ ((c.vote_count / ([contestants|map(attribute='vote_count')|sum,1]|max))*100)|round(1) }}%"></i></div></div>{% endfor %}
+</section>{% endblock %}
