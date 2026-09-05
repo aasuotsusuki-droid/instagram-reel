@@ -1,8 +1,33 @@
-{% extends "base.html" %}{% block title %}Login — FF VOTE{% endblock %}
-{% block content %}<div class="auth"><form method="post" class="panel">
-<p class="eyebrow">WELCOME BACK</p><h1>LOGIN</h1>
-<label>Username or Email<input name="identity" required autocomplete="username"></label>
-<label>Password<input type="password" name="password" required autocomplete="current-password"></label>
-<button class="btn" type="submit">LOGIN</button>
-<p>New here? <a href="{{url_for('signup')}}">Create an account</a></p>
-</form></div>{% endblock %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login</title>
+  <style>
+    body { margin: 0; padding: 2rem; font-family: Arial, sans-serif; background: #f4f4f4; color: #222; }
+    main { max-width: 420px; margin: 4rem auto; padding: 2rem; background: #fff; border-radius: 8px; }
+    label { display: block; margin-top: 1rem; font-weight: 600; }
+    input { box-sizing: border-box; width: 100%; margin-top: 0.4rem; padding: 0.7rem; border: 1px solid #bbb; border-radius: 4px; }
+    button { width: 100%; margin-top: 1.5rem; padding: 0.75rem; border: 0; border-radius: 4px; color: #fff; background: #222; cursor: pointer; }
+    .error { color: #a00; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Login</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <p class="{{ category }}">{{ message }}</p>
+      {% endfor %}
+    {% endwith %}
+    <form method="post">
+      <label for="identity">Username or email</label>
+      <input id="identity" name="identity" type="text" required>
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" required>
+      <button type="submit">Log in</button>
+    </form>
+  </main>
+</body>
+</html>
